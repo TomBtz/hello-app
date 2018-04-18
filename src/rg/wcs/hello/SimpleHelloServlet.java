@@ -12,7 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@WebServlet(name = "SimpleHelloServlet", urlPatterns = {"/simple-hello"})
+@WebServlet(name = "SimpleHelloServlet", urlPatterns = {"/hello-form", "/custom-hello"})
 public class SimpleHelloServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,18 +51,18 @@ public class SimpleHelloServlet extends HttpServlet {
         Date morningHours=null;
         Date afternoonHours=null;
         Date eveningHours=null;
-        String msg = "soucis avec ton code !";
+        String msg ="Good Evening";
         try {
-            morningHours = sdf.parse("05:00");
-            afternoonHours = sdf.parse("12:00");
+            morningHours = sdf.parse("06:00");
+            afternoonHours = sdf.parse("11:59");
             eveningHours = sdf.parse("18:00");
 
-            if(timeUser.before(morningHours) || eveningHours.before(timeUser)){
-                msg =  "Good Evening";
-            } else if (timeUser.before(afternoonHours)) {
+            if(timeUser.before(eveningHours)){
+                msg =  "Good afternoon";
+            }
+
+            if (timeUser.before(afternoonHours) && (morningHours.before(timeUser))) {
                 msg =  "Good Morning";
-            } else {
-                msg =  "Good Afternoon";
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -72,9 +72,12 @@ public class SimpleHelloServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+
         //PrintWriter out = response.getWriter(); out.print("Simple hello coucou!");
 
 
 
     }
+
 }

@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <form action="simple-hello" method="post">
+    <form action="custom-hello" method="post">
 
       Name <input type="text" name="userName"/><br/><br/>
       Family Name <input type="text" name="userSurname"/><br/><br/>
